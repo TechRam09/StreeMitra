@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreeMitra - Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .loginContainer {
+        background: url("./static/images/login.jpeg");
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        background-size: cover;
+        background-repeat: no-repeat;
+        align-items: center;
+        padding: 100px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #ff0000;
+        padding: 20px;
+        width: 400px;
+        height: 450px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding-top: 25px;
+      }
+
+      form input {
+        padding: 12px;
+        border-radius: 50px;
+        border: 0;
+        outline: 0;
+      }
+
+      .registerBtn {
+        padding: 12px;
+        border-radius: 50px;
+        border: 0;
+        outline: 0;
+        width: 40%;
+        margin: 0px auto;
+        background-image: linear-gradient(
+          to right,
+          rgb(1 134 218),
+          rgb(182 49 167)
+        );
+        border: 0;
+        color: white;
+      }
+
+      form h1 {
+        text-align: center;
+        color: white;
+      }
+      .dummyContainer {
+        width: 50%;
+        height: 100%;
+      }
+
+      .loginformContainer {
+        padding-left: 150px;
+        display: flex;
+        width: 50%;
+        justify-content: center;
+      }
+
+      .formLinks {
+        color: white;
+        display: flex;
+        gap: 5px;
+      }
+
+      .formLinks a {
+        color: black;
+        text-decoration: none;
+      }
+
+      .formLinks a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loginContainer">
+      <div class="dummyContainer"></div>
+      <div class="loginformContainer">
+        <h1>Login</h1>
+        <form action="{{ url_for('login') }}" method="POST">
+          {{ form.hidden_tag() }} {{ form.email(id="email", class_="form-control
+          input",placeholder="Email") }} {{ form.password(id="password",
+          class_="form-control input",placeholder="Password") }}
+
+          <button type="submit" class="registerBtn">Login</button>
+          <div class="formLinks">
+            <h4>Don't have an Account?</h4>
+            <a href="{{ url_for('register') }}">Signup</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
