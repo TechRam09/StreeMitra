@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Real-Time Location Tracking</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #map {
+        height: 500px;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      #user-list {
+        margin-top: 10px;
+        padding: 0;
+        list-style: none;
+      }
+      #user-list li {
+        background: #f3f3f3;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Admin - Real-Time Location Tracking</h1>
+    <div id="map"></div>
+
+    <ul id="user-list">
+      <h2>Active Users:</h2>
+    </ul>
+
+    <script>
+      const socket = io("http://127.0.0.1:5000");
+
+      const map = L.map("map").setView([22.5937, 78.9629], 5);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+
+      const userMarkers = {};
+      const userColors = {};
+
+      // Generate a random color
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      function calculateOffset(index) {
+        const offsetStep = 0.0002;
+        const offsetMultiplier = index % 5;
+        return offsetStep * offsetMultiplier;
+      }
+
+      socket.on("update_location", (data) => {
+        const { user_id, latitude, longitude } = data;
+
+        const offsetLongitude = longitude - 0.01;
+
+        if (userMarkers[user_id]) {
+          userMarkers[user_id].setLatLng([latitude, offsetLongitude]);
+        } else {
+          const color = getRandomColor();
+          userColors[user_id] = color;
+
+          const markerIcon = L.divIcon({
+            className: "custom-marker",
+            html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid black;"></div>`,
+          });
+
+          const userIndex = Object.keys(userMarkers).length; // Get the number of current markers
+          const offsetLat = latitude + calculateOffset(userIndex);
+          const offsetLng = longitude + calculateOffset(userIndex);
+
+          const marker = L.marker([latitude, offsetLongitude], {
+            icon: markerIcon,
+          }).addTo(map);
+          marker.bindPopup(`User: ${user_id}`);
+          userMarkers[user_id] = marker;
+
+          const userList = document.getElementById("user-list");
+          if (!document.getElementById(`user-${user_id}`)) {
+            const userItem = document.createElement("li");
+            userItem.id = `user-${user_id}`;
+            userItem.style.color = color;
+            userItem.textContent = `User: ${user_id}`;
+            userList.appendChild(userItem);
+          }
+        }
+
+        const markerBounds = L.latLngBounds(
+          Object.values(userMarkers).map((marker) => marker.getLatLng())
+        );
+        map.fitBounds(markerBounds, { padding: [50, 50] });
+
+        map.setView([latitude, longitude], 15, {
+          animate: true,
+          duration: 10,
+        });
+      });
+    </script>
+
+    <ul
+      id="user-list"
+      style="list-style: none; padding: 10px; font-size: 14px"
+    ></ul>
+  </body>
+</html>
