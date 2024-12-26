@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Women's Safety - User</title>
+
+    <link rel="manifest" href="/static/manifest.json" />
+
+    <meta name="theme-color" content="#ff0000" />
+    <meta
+      name="description"
+      content="Women's Safety Application for Emergency Alerts."
+    />
+    <link rel="apple-touch-icon" href="/static/images/icon-192x192.png" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/static/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
+            })
+            .catch((error) => {
+              console.error("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #sos-button {
+        display: block;
+        height: 300px;
+        width: 300px;
+        padding: 15px 30px;
+
+        color: white;
+        font-size: 24px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+
+        background: #d0021b;
+        -webkit-box-shadow: 11px 11px 38px #53010b, -11px -11px 38px #ff032b;
+        box-shadow: 11px 11px 38px #53010b, -11px -11px 38px #ff032b;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+      body {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+      }
+      nav {
+        background-color: #ffe9d5;
+        display: flex;
+        height: 80px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .list-items {
+        list-style: none;
+      }
+
+      .nav-links {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        color: #64605f;
+      }
+
+      .SOS-Container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #sos-button {
+        font-size: 50px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="" alt="" />
+      </div>
+      <ul class="navbar">
+        <li class="list-items"><a href="" class="nav-links">Home</a></li>
+        <li class="list-items"><a href="" class="nav-links">About</a></li>
+        <li class="list-items"><a href="" class="nav-links">Features</a></li>
+        <li class="list-items"><a href="" class="nav-links">Contact</a></li>
+        <li class="list-items">
+          <a href="/register" class="nav-links">Get Started</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="SOS-Container">
+      <h1>Women's Safety - Location Sharing</h1>
+      <p id="status">Requesting location access...</p>
+      <button id="sos-button">SOS</button>
+    </div>
+
+    <script>
+      const socket = io("http://127.0.0.1:5000"); // Replace with actual server URL
+
+      // Generate a unique user ID
+      const user_id =
+        localStorage.getItem("user_id") ||
+        `User_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+      localStorage.setItem("user_id", user_id);
+
+      let currentLatitude = null;
+      let currentLongitude = null;
+
+      // Request location updates
+      navigator.geolocation.watchPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          currentLatitude = latitude;
+          currentLongitude = longitude;
+
+          socket.emit("user_location", {
+            user_id,
+            latitude,
+            longitude,
+          });
+
+          document.getElementById(
+            "status"
+          ).innerText = `Location sent: ${latitude}, ${longitude}`;
+        },
+        (error) => {
+          document.getElementById("status").innerText =
+            "Location access denied or unavailable!";
+        },
+        { enableHighAccuracy: true }
+      );
+
+      // Handle SOS Button click
+      document.getElementById("sos-button").addEventListener("click", () => {
+        if (currentLatitude && currentLongitude) {
+          socket.emit("sos_alert", {
+            user_id,
+            latitude: currentLatitude,
+            longitude: currentLongitude,
+          });
+          alert("SOS Alert Sent!");
+        } else {
+          alert(
+            "Unable to fetch your location. Please enable location services."
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
