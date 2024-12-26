@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+      body {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+      }
+      nav {
+        background-color: #ffe9d5;
+        display: flex;
+        height: 80px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .list-items {
+        list-style: none;
+      }
+
+      .nav-links {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        color: #64605f;
+      }
+
+      .mainContainer {
+        height: 100vh;
+        background: url("./static/images/Section1.jpg");
+        background-size: cover;
+        background-position-y: -120px;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        padding: 50px;
+      }
+
+      .leftmain {
+        display: flex;
+        width: 50%;
+        flex-direction: column;
+      }
+
+      .banner-heading {
+        font-size: 60px;
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        color: #171a24;
+        margin-left: -5px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+      }
+
+      .bannerText {
+        color: #777473;
+        width: 50%;
+        margin-bottom: 12px;
+      }
+
+      .btn {
+        border-radius: 50px;
+        background-color: #e38448;
+        color: #ffffff;
+        width: 100px;
+        border: 0;
+        outline: 0;
+        padding: 12px 10px;
+        margin-top: 12px;
+      }
+
+      .welcome {
+        margin-top: 80px;
+      }
+
+      #section2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        width: 100%;
+        margin-top: 150px;
+      }
+
+      .section-description {
+        width: 60%;
+        text-align: center;
+        color: #b8b6b7;
+      }
+      .section-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 50px;
+      }
+
+      .leftsection {
+        border: 2px solid black;
+        border-radius: 12px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 40%;
+        padding-left: 50px;
+      }
+
+      .rightsection img {
+        height: 90vh;
+        width: 100%;
+      }
+
+      .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .links {
+        text-decoration: none;
+        color: #e38448;
+      }
+
+      .connectLink {
+        margin-top: 60px;
+      }
+
+      .connectLink:hover {
+        text-decoration: underline;
+        color: #e38448;
+      }
+
+      #section2 {
+        margin-bottom: 350px;
+      }
+
+      #section3 {
+        margin-top: 350px;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        width: 100%;
+        margin-top: 150px;
+      }
+      #section3-container {
+        flex-direction: row-reverse !important;
+      }
+
+      #section4 {
+        padding-left: 80px;
+        padding-right: 80px;
+        margin-top: 250px;
+        margin-bottom: 150px !important;
+      }
+
+      #section4-container .leftsection {
+        width: 40% !important;
+        border: 0px;
+        background-color: #f9f8f7;
+      }
+
+      #section5-container {
+        flex-direction: row-reverse !important;
+      }
+
+      #section5-container .rightsection img {
+        width: 600px;
+        border-radius: 12px;
+      }
+
+      #section6-container .rightsection img {
+        width: 600px;
+        height: 400px;
+      }
+
+      .text {
+        color: #777473;
+
+        margin-bottom: 12px;
+      }
+
+      #section6 {
+        margin-top: -2px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <img src="" alt="" />
+      </div>
+      <ul class="navbar">
+        <li class="list-items"><a href="" class="nav-links">Home</a></li>
+        <li class="list-items"><a href="" class="nav-links">About</a></li>
+        <li class="list-items"><a href="" class="nav-links">Features</a></li>
+        <li class="list-items"><a href="" class="nav-links">Contact</a></li>
+        <li class="list-items">
+          <a href="/register" class="nav-links">Get Started</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="section1" class="mainContainer">
+      <div class="leftmain">
+        <p class="welcome">Welcome to our Safety App</p>
+        <h1 class="banner-heading">Empowering Women with Confidence</h1>
+        <p class="bannerText">
+          Explore our comprehensive safety features, including an emergency
+          button, personalized safety tips, and a secure help chat
+        </p>
+        <a href="/user"><button class="btn">Emergency</button></a>
+      </div>
+    </div>
+    <div id="section2" class="section">
+      <h2 class="banner-heading">About Our App</h2>
+      <p class="section-description">
+        At our women's safety app, we believe that every woman deserves to feel
+        secure and empowered. Our mission is to provide a comprehensive suite of
+        tools and resources to help you navigate the world with confidence
+      </p>
+      <div class="section-container">
+        <div class="leftsection">
+          <img class="icon" src="./static/images/image1.jpg" alt="" />
+          <h1 class="banner-heading">Personalized Safety Tips</h1>
+          <p class="bannerText">
+            Discover tailored safety recommendations based on your location,
+            lifestyle, and unique needs. Our experts curate the latest
+            information to help you stay informed and prepared
+          </p>
+          <p class="bannerText">Secure Help Chat</p>
+
+          <p class="connectLink">
+            <a href="" class="links">Connect with US</a>
+          </p>
+        </div>
+        <div class="rightsection">
+          <img src="./static/images/Section2.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div id="section3" class="section">
+      <h2 class="banner-heading">Our Features</h2>
+      <p class="section-description">
+        Explore our app's powerful features designed to enhance your personal
+        safety
+      </p>
+      <div id="section3-container" class="section-container">
+        <div class="leftsection">
+          <img class="icon" src="./static/images/image1.jpg" alt="" />
+          <h1 class="banner-heading">Empowering Women with Confidence</h1>
+          <p class="bannerText">
+            Explore our comprehensive safety features, including an emergency
+            button, personalized safety tips, and a secure help chat
+          </p>
+          <button class="btn">Emergency</button>
+        </div>
+        <div class="rightsection">
+          <img src="./static/images/Section3.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div id="section4" class="section">
+      <div id="section4-container" class="section-container">
+        <div class="leftsection">
+          <img class="icon" src="./static/images/image1.jpg" alt="" />
+          <h1 class="banner-heading">Empowering Women with Confidence</h1>
+          <p class="bannerText">
+            Explore our comprehensive safety features, including an emergency
+            button, personalized safety tips, and a secure help chat
+          </p>
+          <button class="btn">Emergency</button>
+        </div>
+        <div class="rightsection">
+          <img src="./static/images/Section4.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div id="section5" class="section">
+      <div id="section5-container" class="section-container">
+        <div class="leftsection">
+          <img class="icon" src="./static/images/image1.jpg" alt="" />
+          <h1 class="banner-heading">Empowering Women to Stay Safe</h1>
+          <p class="text">
+            At the heart of our app is a deep commitment to empowering women and
+            providing the tools and support you need to feel secure. Our team of
+            experts has carefully curated a suite of features designed to
+            enhance your personal safety, from emergency assistance to
+            personalized safety tips and a secure help chat
+          </p>
+          <p class="bannerText">Take the First Step</p>
+
+          <p class="connectLink">
+            <a href="" class="links">Get in Touch</a>
+          </p>
+        </div>
+        <div class="rightsection">
+          <img src="./static/images/Section5.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div id="section6" class="section">
+      <div id="section6-container" class="section-container">
+        <div class="leftsection">
+          <img class="icon" src="./static/images/image1.jpg" alt="" />
+          <h1 class="banner-heading">Connect with Us</h1>
+          <p class="bannerText">
+            We're dedicated to supporting women and creating a safer world.
+            Explore our app to discover the comprehensive resources and features
+            that can help you navigate life with confidence
+          </p>
+        </div>
+        <div class="rightsection">
+          <img src="./static/images/Section6.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
